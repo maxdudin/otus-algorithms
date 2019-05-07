@@ -1,0 +1,73 @@
+<input> 7 4 4 3 3 2 1 1
+read 1
+load 1
+read_arr:
+    add =5
+    read *0
+    sub =6
+    jgtz read_arr
+
+; i initialization
+load =5
+store 2
+
+outer_loop:
+    load 2
+    add =1
+    store 2
+    store 3
+
+    inner_loop:
+        load 3
+        add =1
+        store 3
+
+        ; comparing ai and aj
+        ; if ai - aj > 0 swap it
+        load *2
+        sub *3
+        jgtz swap
+
+        ; check whether N + 5 > j
+        out_of_inner_loop:
+        load 1
+        add =5
+        sub 3
+        jgtz inner_loop
+
+    ; check whether N + 4 > j
+    load 1
+    add =4
+    sub 2
+    jgtz outer_loop
+    jz print
+
+; ai = ai + aj
+; aj = ai - aj
+; ai = ai - aj
+swap:
+    load *2
+    add *3
+    store *2
+    sub *3
+    store *3
+    load *2
+    sub *3
+    store *2
+    jmp out_of_inner_loop
+
+print:
+    load =5
+    add 1
+    store 2
+    load =5
+    store 1
+    print_loop:
+        load 1
+        add =1
+        write *0
+        store 1
+        load 2
+        sub 1
+        jgtz print_loop
+        halt
