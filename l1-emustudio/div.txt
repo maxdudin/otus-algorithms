@@ -7,8 +7,6 @@ store 3
 load 1
 sub 2
 jgtz loop
-load =0
-store 3
 jmp print
 
 loop:
