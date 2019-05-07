@@ -1,4 +1,4 @@
-<input> 100 1
+<input> 432 57
 read 1
 read 2
 load =0
@@ -11,6 +11,8 @@ loop:
     add =1
     store 3
     load 1
+    sub 2
     jgtz loop
 write 3
+write 1
 halt
