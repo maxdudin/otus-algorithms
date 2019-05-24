@@ -55,8 +55,6 @@ public class MatrixArray<T> implements IArray<T> {
 
         for (int i = arrayToAccess + 1; i < array.size(); i++) {
             for (int j = 0; j < vector; j++) {
-                //add only one than break
-
                 if ((i + 1) == array.size() && ((i * vector) + j == size)) {
                     array.get(i).set(temp, j);
                     break;
