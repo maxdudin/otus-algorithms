@@ -7,20 +7,26 @@ import java.util.Stack;
 public class HeapSort<T extends Comparable> implements Sort<T> {
     @Override
     public void sort(T[] a) {
-
+        int heapSize = a.length;
+        buildHeap(a, heapSize);
+        for (int i = heapSize - 1; i > 0; i--) {
+            swap(0, i, a);
+            heapSize--;
+            buildHeap(a, heapSize);
+        }
     }
 
-    void buildHeap(T[] arr) {
-        for (int i = arr.length / 2; i >= 0; i--) {
+    void buildHeap(T[] arr, int heapSize) {
+        for (int i = heapSize / 2; i >= 0; i--) {
             Stack<Integer> heapifyStack = new Stack<>();
             heapifyStack.push(i);
             while (!heapifyStack.empty()) {
-                maxHeapify(arr, heapifyStack);
+                maxHeapify(arr, heapifyStack, heapSize);
             }
         }
     }
 
-    void maxHeapify(T[] arr, Stack<Integer> heapifyStack) {
+    void maxHeapify(T[] arr, Stack<Integer> heapifyStack, int heapSize) {
         if (heapifyStack.empty()) {
             return;
         }
@@ -29,11 +35,11 @@ public class HeapSort<T extends Comparable> implements Sort<T> {
         int l = left(i);
         int r = right(i);
         int max = i;
-        if (l < arr.length && arr[l].compareTo(arr[i]) > 0) {
+        if (l < heapSize && arr[l].compareTo(arr[i]) > 0) {
             max = l;
         }
 
-        if (r < arr.length && arr[r].compareTo(arr[max]) > 0) {
+        if (r < heapSize && arr[r].compareTo(arr[max]) > 0) {
             max = r;
         }
 

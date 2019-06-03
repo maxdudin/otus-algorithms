@@ -1,7 +1,10 @@
 package otus.sort;
 
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import otus.sort.insertion.PartialInsertionSort;
+import otus.sort.test.TestArraySorting;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -15,8 +18,14 @@ public class TestPartialInsertionSorting extends TestArraySorting {
 
     @Override
     @Test
-    public void sort_WhenGivenSimpleUnsortedArray_ExpectItSorted() {
-        super.sort_WhenGivenSimpleUnsortedArray_ExpectItSorted();
+    public void whenGivenSimpleUnsortedArray_ExpectItSorted() {
+        super.whenGivenSimpleUnsortedArray_ExpectItSorted();
+    }
+
+    @Override
+    @RepeatedTest(10)
+    public void whenRandomArrayWasGenerated_ExpectItSorted() {
+        super.whenRandomArrayWasGenerated_ExpectItSorted();
     }
 
     @Test
