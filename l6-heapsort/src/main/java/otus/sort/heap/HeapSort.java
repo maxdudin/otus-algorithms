@@ -11,7 +11,7 @@ public class HeapSort<T extends Comparable> implements Sort<T> {
     }
 
     void buildHeap(T[] arr) {
-        for (int i = arr.length / 2; i > 0; i--) {
+        for (int i = arr.length / 2; i >= 0; i--) {
             Stack<Integer> heapifyStack = new Stack<>();
             heapifyStack.push(i);
             while (!heapifyStack.empty()) {
@@ -48,10 +48,10 @@ public class HeapSort<T extends Comparable> implements Sort<T> {
     }
 
     private int left(int i) {
-        return 2 * i;
+        return 2 * i + 1;
     }
 
     private int right(int i) {
-        return 2 * i + 1;
+        return 2 * i + 2;
     }
 }

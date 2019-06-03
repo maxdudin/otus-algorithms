@@ -16,9 +16,9 @@ public class TestShellSorting {
     public void sort_WhenGivenSimpleUnsortedArray_ExpectItSorted() {
         int arraySize = 1000;
         int maxNum = 1000;
-        Integer[] array = (Integer[]) new Random()
+        Integer[] array = new Random()
                 .ints(arraySize, 0, maxNum)
-                .boxed().toArray();
+                .boxed().toArray(Integer[]::new);
         int[] deltas = IntStream
                 .iterate(1, x -> x < maxNum, x -> 4^x + 3*2^(x - 1) + 1)
                 .sorted().toArray();
