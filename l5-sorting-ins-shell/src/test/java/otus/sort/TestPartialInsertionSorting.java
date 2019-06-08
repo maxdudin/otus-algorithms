@@ -5,7 +5,11 @@ import org.junit.jupiter.api.Test;
 import otus.sort.insertion.PartialInsertionSort;
 import otus.sort.test.TestArraySorting;
 
+import java.util.Random;
+import java.util.stream.IntStream;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class TestPartialInsertionSorting extends TestArraySorting {
@@ -44,5 +48,18 @@ public class TestPartialInsertionSorting extends TestArraySorting {
         assertEquals(Integer.valueOf(2), arr[3]);
         assertEquals(Integer.valueOf(3), arr[6]);
         assertEquals(Integer.valueOf(4), arr[9]);
+    }
+
+    @RepeatedTest(1000)
+    public void sort_WhenGivenPartialSortingTaskLenModGapIsZero_ExpectArrayBeingPartialSorted1() {
+        Integer[] array = new Random()
+                .ints(10, 0, 10)
+                .boxed().toArray(Integer[]::new);
+        partialInsertionSort.sortArrPart(array, 2, 7);
+        IntStream.range(3, 7).forEach(i -> {
+            for (int j = i - 1; j >= 2; j--) {
+                assertTrue(array[j] <= array[i]);
+            }
+        });
     }
 }

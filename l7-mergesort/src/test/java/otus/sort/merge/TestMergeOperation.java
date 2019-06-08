@@ -16,7 +16,7 @@ public class TestMergeOperation {
     public void testSimpleArr() {
         int len = 4;
         int begin = 0;
-        int middle = 2;
+        int middle = 1;
         Integer[] array = new Integer[]{0, 7, 6, 9};
         testGenericMerge(array, len, begin, middle, len - 1);
     }
@@ -26,19 +26,19 @@ public class TestMergeOperation {
         int len = ThreadLocalRandom.current().nextInt(1, 41);
         int max = ThreadLocalRandom.current().nextInt(1, 41);
         int begin = 0;
-        int middle = len / 2;
+        int middle = (len - 1) / 2;
         Integer[] array = new Random()
                 .ints(len, 0, max)
                 .boxed().toArray(Integer[]::new);
         testGenericMerge(array, len, begin, middle, len - 1);
     }
 
-    @RepeatedTest(100)
+    @RepeatedTest(1000)
     public void whenSmallRandomArrayIsGiven_expectMergeProcedureWork() {
         int len = ThreadLocalRandom.current().nextInt(1, 5);
         int max = ThreadLocalRandom.current().nextInt(1, 5);
         int begin = 0;
-        int middle = len / 2;
+        int middle = (len - 1) / 2;
         Integer[] array = new Random()
                 .ints(len, 0, max)
                 .boxed().toArray(Integer[]::new);
@@ -46,20 +46,15 @@ public class TestMergeOperation {
     }
 
     private void testGenericMerge(Integer[] array, int len, int begin, int middle, int end) {
-        Integer[] arrayCopy = Arrays.copyOf(array, len);
         Integer[] arrayCopyAux = Arrays.copyOf(array, len);
-        Arrays.sort(arrayCopy);
 
-        Arrays.sort(array, begin, middle);
+        Arrays.sort(array, begin, middle + 1);
         Arrays.sort(array, middle + 1, end + 1);
         MergeSort<Integer> mergeSort = new MergeSort<>();
         mergeSort.merge(array, begin, middle, end, arrayCopyAux);
 
         IntStream.range(begin, end).forEach(i -> {
             for (int j = i - 1; j > begin; j--) {
-                if (array[j] > array[i]) {
-                    System.out.println("asda");
-                }
                 assertTrue(array[j] <= array[i]);
             }
         });

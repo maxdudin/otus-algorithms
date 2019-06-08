@@ -1,14 +1,11 @@
 package otus.sort.merge;
 
-import otus.sort.tool.ArraySortAssertion;
 
-import java.util.Arrays;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
 
 public class ForkJoinMergeSort<T extends Comparable> extends MergeSort<T> {
     private final int processors = Runtime.getRuntime().availableProcessors();
-    private ArraySortAssertion<T> arraySortAssertion = new ArraySortAssertion();
 
     public ForkJoinMergeSort() {
         super();
@@ -39,8 +36,7 @@ public class ForkJoinMergeSort<T extends Comparable> extends MergeSort<T> {
 
         protected void compute() {
             if ((subEnd - subBegin) < INSERTION_SORT_BOUNDARY) {
-//                insertionSort.sortArrPart(array, subBegin, subEnd);
-                Arrays.sort(array, subBegin, subEnd + 1);
+                insertionSort.sortArrPart(array, subBegin, subEnd);
                 return;
             }
 

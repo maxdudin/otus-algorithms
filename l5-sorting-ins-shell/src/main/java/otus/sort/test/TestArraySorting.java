@@ -34,9 +34,6 @@ public abstract class TestArraySorting {
 
         IntStream.range(0, len - 1).forEach(i -> {
             for (int j = i - 1; j >= 0; j--) {
-                if (array[j] > array[i]) {
-                    System.out.println("asd");
-                }
                 assertTrue(array[j] <= array[i]);
             }
         });
