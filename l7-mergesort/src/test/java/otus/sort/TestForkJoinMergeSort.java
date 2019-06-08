@@ -2,12 +2,12 @@ package otus.sort;
 
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
-import otus.sort.insertion.InsertionSort;
+import otus.sort.merge.ForkJoinMergeSort;
 import otus.sort.test.TestArraySorting;
 
-public class TestInsertionSorting extends TestArraySorting {
-    public TestInsertionSorting() {
-        this.sortingAlgo = new InsertionSort<>();
+public class TestForkJoinMergeSort extends TestArraySorting {
+    protected TestForkJoinMergeSort() {
+        this.sortingAlgo = new ForkJoinMergeSort<>(5);
     }
 
     @Override
@@ -16,8 +16,8 @@ public class TestInsertionSorting extends TestArraySorting {
         super.whenGivenSimpleUnsortedArray_ExpectItSorted();
     }
 
-    @RepeatedTest(10)
+    @RepeatedTest(100)
     public void whenRandomArrayWasGenerated_ExpectItSorted() {
-        super.whenRandomArrayWasGenerated_ExpectItSorted(100, 777);
+        super.whenRandomArrayWasGenerated_ExpectItSorted(121, 121);
     }
 }

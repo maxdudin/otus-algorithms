@@ -7,7 +7,7 @@ import otus.sort.test.TestArraySorting;
 
 public class TestMergeSort extends TestArraySorting {
     public TestMergeSort() {
-        this.sortingAlgo = new MergeSort<>();
+        this.sortingAlgo = new MergeSort<>(5);
     }
 
     @Override
@@ -16,9 +16,8 @@ public class TestMergeSort extends TestArraySorting {
         super.whenGivenSimpleUnsortedArray_ExpectItSorted();
     }
 
-    @Override
-    @RepeatedTest(10)
+    @RepeatedTest(100)
     public void whenRandomArrayWasGenerated_ExpectItSorted() {
-        super.whenRandomArrayWasGenerated_ExpectItSorted();
+        super.whenRandomArrayWasGenerated_ExpectItSorted(121, 121);
     }
 }

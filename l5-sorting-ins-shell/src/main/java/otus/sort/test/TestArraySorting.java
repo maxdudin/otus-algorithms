@@ -1,14 +1,13 @@
 package otus.sort.test;
 
-import org.junit.jupiter.api.Assertions;
 import otus.sort.Sort;
 
 import java.util.Arrays;
 import java.util.Random;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public abstract class TestArraySorting {
@@ -27,9 +26,7 @@ public abstract class TestArraySorting {
         assertArrayEquals(arrCopy, arr);
     }
 
-    public void whenRandomArrayWasGenerated_ExpectItSorted() {
-        int len = 100;
-        int max = 777;
+    public void whenRandomArrayWasGenerated_ExpectItSorted(int len, int max) {
         Integer[] array = new Random()
                 .ints(len, 0, max)
                 .boxed().toArray(Integer[]::new);
@@ -37,6 +34,9 @@ public abstract class TestArraySorting {
 
         IntStream.range(0, len - 1).forEach(i -> {
             for (int j = i - 1; j >= 0; j--) {
+                if (array[j] > array[i]) {
+                    System.out.println("asd");
+                }
                 assertTrue(array[j] <= array[i]);
             }
         });

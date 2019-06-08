@@ -15,9 +15,8 @@ public class TestHeapSort extends TestArraySorting {
         super.whenGivenSimpleUnsortedArray_ExpectItSorted();
     }
 
-    @Override
     @RepeatedTest(10)
     public void whenRandomArrayWasGenerated_ExpectItSorted() {
-        super.whenRandomArrayWasGenerated_ExpectItSorted();
+        super.whenRandomArrayWasGenerated_ExpectItSorted(100, 777);
     }
 }

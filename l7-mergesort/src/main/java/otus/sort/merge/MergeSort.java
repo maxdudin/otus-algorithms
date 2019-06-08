@@ -1,11 +1,19 @@
 package otus.sort.merge;
 
 import otus.sort.Sort;
-import otus.sort.insertion.InsertionSort;
+import otus.sort.insertion.PartialInsertionSort;
 
 public class MergeSort<T extends Comparable> implements Sort<T> {
-    protected static final int INSERTION_SORT_BOUNDARY = 33;
-    protected final Sort<T> insertionSort = new InsertionSort<>();
+    protected final int INSERTION_SORT_BOUNDARY;
+    protected final PartialInsertionSort<T> insertionSort = new PartialInsertionSort<>();
+
+    public MergeSort() {
+        INSERTION_SORT_BOUNDARY = 33;
+    }
+
+    public MergeSort(int insertionSortBoundary) {
+        this.INSERTION_SORT_BOUNDARY = insertionSortBoundary;
+    }
 
     @Override
     @SuppressWarnings("unchecked")
@@ -15,7 +23,7 @@ public class MergeSort<T extends Comparable> implements Sort<T> {
 
     public void splitMerge(T[] arr, int begin, int end, T[] copy) {
         if ((end - begin) < INSERTION_SORT_BOUNDARY) {
-            insertionSort.sort(arr);
+            insertionSort.sortArrPart(arr, begin, end);
             return;
         }
 
@@ -31,12 +39,12 @@ public class MergeSort<T extends Comparable> implements Sort<T> {
         }
 
         int fst = begin;
-        int scd = middle;
+        int scd = middle + 1;
         for (int i = begin; i <= end; i++) {
-            if (fst > middle) arr[i] = arr[scd++];
-            else if (scd > end) arr[i] = arr[fst++];
-            else if (arr[fst].compareTo(arr[scd]) < 0) arr[i] = arr[fst++];
-            else arr[i] = arr[scd++];
+            if (fst > middle) arr[i] = copy[scd++];
+            else if (scd > end) arr[i] = copy[fst++];
+            else if (copy[fst].compareTo(copy[scd]) < 0) arr[i] = copy[fst++];
+            else arr[i] = copy[scd++];
         }
     }
 }

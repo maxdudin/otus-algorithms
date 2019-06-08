@@ -10,7 +10,7 @@ import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class MergeOperationSort {
+public class TestMergeOperation {
 
     @Test
     public void testSimpleArr() {
@@ -22,7 +22,7 @@ public class MergeOperationSort {
     }
 
     @RepeatedTest(100)
-    public void testRandomizedMerge() {
+    public void whenLargeRandomArrayIsGiven_expectMergeProcedureWorks() {
         int len = ThreadLocalRandom.current().nextInt(1, 41);
         int max = ThreadLocalRandom.current().nextInt(1, 41);
         int begin = 0;
@@ -34,7 +34,7 @@ public class MergeOperationSort {
     }
 
     @RepeatedTest(100)
-    public void testRandomizedMergeSmallNumbers() {
+    public void whenSmallRandomArrayIsGiven_expectMergeProcedureWork() {
         int len = ThreadLocalRandom.current().nextInt(1, 5);
         int max = ThreadLocalRandom.current().nextInt(1, 5);
         int begin = 0;
@@ -51,12 +51,15 @@ public class MergeOperationSort {
         Arrays.sort(arrayCopy);
 
         Arrays.sort(array, begin, middle);
-        Arrays.sort(array, middle, end + 1);
+        Arrays.sort(array, middle + 1, end + 1);
         MergeSort<Integer> mergeSort = new MergeSort<>();
         mergeSort.merge(array, begin, middle, end, arrayCopyAux);
 
         IntStream.range(begin, end).forEach(i -> {
-            for (int j = i - 1; j >= 0; j--) {
+            for (int j = i - 1; j > begin; j--) {
+                if (array[j] > array[i]) {
+                    System.out.println("asda");
+                }
                 assertTrue(array[j] <= array[i]);
             }
         });
