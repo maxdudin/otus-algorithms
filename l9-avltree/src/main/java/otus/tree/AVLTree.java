@@ -1,7 +1,5 @@
 package otus.tree;
 
-import com.sun.source.tree.Tree;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -144,6 +142,16 @@ public class AVLTree<K extends Comparable<K>, V> {
         return nodeB;
     }
 
+    public boolean remove(K rmKey) {
+        TreeNode newRoot = remove(root, rmKey);
+        if (newRoot != null) {
+            root = newRoot;
+            return true;
+        }
+
+        return false;
+    }
+
     /**
      * removes an element with a given key from subtree
      * @param subTree
@@ -189,17 +197,32 @@ public class AVLTree<K extends Comparable<K>, V> {
                 subTree.key = successor.key;
                 subTree.value = successor.value;
 
-                TreeNode replacement = remove(subTree.left, subTree.key);
-                subTree.left = replacement;
+                removeSuccessor(subTree);
             }
         }
 
         updateHeight(subTree);
         return balance(subTree);
     }
+
+    public void removeSuccessor(TreeNode subTree) {
+        TreeNode cur = subTree.left;
+        List<TreeNode> path = new ArrayList<>();
+        while (cur.right != null) {
+            path.add(cur);
+            cur = cur.right;
+        }
+        if (path.isEmpty()) {
+            cur.parent.left = null;
+        } else {
+            cur.parent.right = null;
+        }
+        cur.deleted = true;
+        path.forEach(this::updateHeight);
+    }
+
     //incoming node means A node from picture
     //B is a right child of A
-
     private TreeNode leftRotation(TreeNode node) {
         TreeNode nodeA = node;
         TreeNode nodeB = node.right;
