@@ -104,6 +104,9 @@ public class RedBlackTree<K extends Comparable<K>, V> {
 
         TreeNode grandParent = parent.parent;
         if (grandParent == null) {
+            if (parent.color == RED) {
+                parent.color = BLACK;
+            }
             return;
         }
 
@@ -177,17 +180,9 @@ public class RedBlackTree<K extends Comparable<K>, V> {
         nodeB.left = nodeA;
         nodeA.parent = nodeB;
         nodeB.parent = nodeP;
-        if (nodeP != null) {
-            if (nodeP.right != null && nodeP.right.key == nodeA.key) {
-                nodeP.right = nodeB;
-            }
-            if (nodeP.left != null && nodeP.left.key == nodeA.key) {
-                nodeP.left = nodeB;
-            }
-        } else {
-            root = nodeB;
-        }
+        updateParentLinkAndBIsLeft(nodeA, nodeB, nodeP);
 
+        nodeA.isLeftChild = true;
         return nodeB;
     }
 
@@ -204,18 +199,25 @@ public class RedBlackTree<K extends Comparable<K>, V> {
         nodeB.right = nodeA;
         nodeA.parent = nodeB;
         nodeB.parent = nodeP;
+        updateParentLinkAndBIsLeft(nodeA, nodeB, nodeP);
+
+        nodeA.isLeftChild = false;
+        return nodeB;
+    }
+
+    private void updateParentLinkAndBIsLeft(TreeNode nodeA, TreeNode nodeB, TreeNode nodeP) {
         if (nodeP != null) {
             if (nodeP.right != null && nodeP.right.key == nodeA.key) {
                 nodeP.right = nodeB;
+                nodeB.isLeftChild = false;
             }
             if (nodeP.left != null && nodeP.left.key == nodeA.key) {
                 nodeP.left = nodeB;
+                nodeB.isLeftChild = true;
             }
         } else {
             root = nodeB;
         }
-
-        return nodeB;
     }
 
     public List<K> getBFSRepresentation() {
