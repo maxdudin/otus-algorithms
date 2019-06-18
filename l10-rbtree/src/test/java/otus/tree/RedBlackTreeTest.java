@@ -59,4 +59,49 @@ public class RedBlackTreeTest {
         List<Integer> actualRepr10 = rbtree.getBFSRepresentation();
         assertEquals(expectedRepr10, actualRepr10);
     }
+
+    @Test
+    public void whenAnotherSimpleAVLTreeHasBeenCreated_ExpectItEqualToPreCalculated() {
+        RedBlackTree<Integer, Integer> rbtree = new RedBlackTree<>();
+
+        RedBlackTree<Integer, Integer>.TreeNode n63 = rbtree.new TreeNode(63, 63);
+        rbtree.insert(n63);
+
+        RedBlackTree<Integer, Integer>.TreeNode n92 = rbtree.new TreeNode(92, 92);
+        rbtree.insert(n92);
+
+        RedBlackTree<Integer, Integer>.TreeNode n85 = rbtree.new TreeNode(85, 85);
+        rbtree.insert(n85);
+
+        RedBlackTree<Integer, Integer>.TreeNode n24 = rbtree.new TreeNode(24, 24);
+        rbtree.insert(n24);
+
+        RedBlackTree<Integer, Integer>.TreeNode n43 = rbtree.new TreeNode(43, 43);
+        rbtree.insert(n43);
+
+        RedBlackTree<Integer, Integer>.TreeNode n99 = rbtree.new TreeNode(99, 99);
+        rbtree.insert(n99);
+
+        RedBlackTree<Integer, Integer>.TreeNode n4 = rbtree.new TreeNode(4, 4);
+        rbtree.insert(n4);
+
+        RedBlackTree<Integer, Integer>.TreeNode n7 = rbtree.new TreeNode(7, 7);
+        rbtree.insert(n7);
+
+        RedBlackTree<Integer, Integer>.TreeNode n22 = rbtree.new TreeNode(22, 22);
+        rbtree.insert(n22);
+
+        RedBlackTree<Integer, Integer>.TreeNode n12 = rbtree.new TreeNode(12, 12);
+        rbtree.insert(n12);
+
+        RedBlackTree<Integer, Integer>.TreeNode n11 = rbtree.new TreeNode(11, 11);
+        rbtree.insert(n11);
+
+        RedBlackTree<Integer, Integer>.TreeNode n10 = rbtree.new TreeNode(10, 10);
+        rbtree.insert(n10);
+
+        List<Integer> expectedRepr = List.of(43, 7, 85, 4, 22, 63, 92, 11, 24, 99, 10, 12);
+        List<Integer> actualRepr = rbtree.getBFSRepresentation();
+        assertEquals(expectedRepr, actualRepr);
+    }
 }
